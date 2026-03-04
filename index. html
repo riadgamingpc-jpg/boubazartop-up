@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BOU BAZAR TOP UP</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f2f2f2;
+margin:0;
+text-align:center;
+}
+
+h1{
+background:#ff5722;
+color:white;
+padding:15px;
+margin:0;
+}
+
+h2{
+margin-top:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 4px 8px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.price{
+color:#e91e63;
+font-weight:bold;
+font-size:18px;
+}
+
+input{
+padding:8px;
+width:220px;
+margin:5px;
+}
+
+button{
+padding:8px 15px;
+background:#2196f3;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+.payment-box{
+background:white;
+padding:15px;
+margin:20px;
+border-radius:10px;
+box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+</style>
+
+<script>
+function selectPackage(name){
+document.getElementById("package").value=name;
+document.getElementById("orderForm").scrollIntoView();
+}
+
+function sendWhatsApp(){
+var uid=document.getElementById("uid").value;
+var pack=document.getElementById("package").value;
+
+if(uid=="" || pack==""){
+alert("UID এবং Package নির্বাচন করুন");
+return;
+}
+
+var message="BOU BAZAR TOP UP Order%0AUID: "+uid+"%0APackage: "+pack;
+window.open("https://wa.me/8801624997988?text="+message,"_blank");
+}
+</script>
+
+</head>
+<body>
+
+<h1>BOU BAZAR TOP UP</h1>
+
+<h2>💎 Diamond Pack</h2>
+<div class="grid">
+<div class="card" onclick="selectPackage('25 Diamond - 22 TK')">
+💎 25 Diamond<br><span class="price">22 TK</span>
+</div>
+
+<div class="card" onclick="selectPackage('50 Diamond - 39 TK')">
+💎 50 Diamond<br><span class="price">39 TK</span>
+</div>
+
+<div class="card" onclick="selectPackage('110 Diamond - 75 TK')">
+💎 110 Diamond<br><span class="price">75 TK</span>
+</div>
+
+<div class="card" onclick="selectPackage('200 Diamond - 150 TK')">
+💎 200 Diamond<br><span class="price">150 TK</span>
+</div>
+</div>
+
+<h2>📅 Monthly</h2>
+<div class="grid">
+<div class="card" onclick="selectPackage('Monthly - 745 TK')">
+📅 Monthly<br><span class="price">745 TK</span>
+</div>
+</div>
+
+<h2>🚀 Level Up Pass</h2>
+<div class="grid">
+<div class="card" onclick="selectPackage('Level Up Full - 420 TK')">
+🚀 Full Pass<br><span class="price">420 TK</span>
+</div>
+</div>
+
+<h2>🍬 মিষ্টি বক্স</h2>
+<div class="grid">
+<div class="card" onclick="selectPackage('মিষ্টি বক্স - 22 TK')">
+🍬 22 TK Pack<br><span class="price">22 TK</span>
+</div>
+
+<div class="card" onclick="selectPackage('মিষ্টি বক্স - 99 TK')">
+🍬 99 TK Pack<br><span class="price">99 TK</span>
+</div>
+</div>
+
+<h2>📝 Order Form</h2>
+
+<div id="orderForm">
+<input type="text" id="uid" placeholder="আপনার UID দিন"><br>
+<input type="text" id="package" placeholder="Selected Package" readonly><br>
+<button onclick="sendWhatsApp()">WhatsApp Order</button>
+</div>
+
+<div class="payment-box">
+<h3>📱 Payment Method</h3>
+<p><b>Bkash / Nagad:</b> 01851634841</p>
+<p style="color:red;">পেমেন্ট করার পর ট্রানজেকশন আইডি WhatsApp এ পাঠান</p>
+</div>
+
+</body>
+</html>
