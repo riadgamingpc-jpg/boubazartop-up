@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeFire Tournament Zone</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h2 {
+            color: #FF5722;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* পেমেন্ট সেকশন */
+        .payment-box {
+            background-color: #1E1E1E;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #FF5722;
+        }
+        .payment-title {
+            color: #B0B0B0;
+            font-size: 14px;
+        }
+        .number-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF5722;
+            margin: 8px 0;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .note {
+            color: #FFC107;
+            font-size: 12px;
+        }
+        /* ইনপুট ফর্ম */
+        .input-group {
+            margin-bottom: 12px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: #1E1E1E;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        input:focus {
+            border-color: #FF5722;
+            outline: none;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+        /* ক্যাটাগরি ও ম্যাচ কার্ড */
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 10px 0;
+            color: #FFF;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+        .match-card {
+            background-color: #1E1E1E;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .match-id {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF9800;
+            color: #000;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .match-header {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            width: 80%;
+        }
+        /* টাইমার ডিজাইন */
+        .timer-box {
+            background-color: #2d140b;
+            border: 1px solid #FF5722;
+            padding: 6px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .timer-label {
+            color: #FFC107;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .timer-clock {
+            color: #FF5722;
+            font-size: 15px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        /* গ্রিড লেআউট */
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+            background-color: #262626;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: #B0B0B0;
+        }
+        .match-grid div span {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 3px;
+        }
+        .win-prize { color: #FFC107 !important; }
+        .entry-fee { color: #8BC34A !important; }
+        .per-kill { color: #00BCD4 !important; }
+        /* প্রোগ্রেস স্লট */
+        .slot-container {
+            margin-top: 15px;
+        }
+        .progress-bar-bg {
+            background-color: #333;
+            height: 10px;
+            border-radius: 5px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+        }
+        .slot-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #B0B0B0;
+            margin-top: 5px;
+        }
+        /* বাটনসমূহ */
+        .btn-join {
+            width: 100%;
+            padding: 12px;
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-join:hover {
+            background-color: #E64A19;
+        }
+        .btn-full {
+            background-color: #555 !important;
+            color: #aaa !important;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>FreeFire Tournament Zone</h2>
+
+    <div class="payment-box">
+        <div class="payment-title">বিকাশ / নগদ (Personal) নম্বর:</div>
+        <div class="number-display" id="adminNumber" onclick="copyNumber()">01851634841</div>
+        <div class="note">*নম্বরের ওপর ক্লিক করলে অটোমেটিক কপি হয়ে যাবে। টাকা পাঠিয়ে নিচে তথ্য দিন।</div>
+    </div>
+
+    <div class="input-group">
+        <input type="number" id="amountInput" placeholder="কত টাকা পাঠিয়েছেন? (Amount)">
+    </div>
+    <div class="input-group">
+        <input type="text" id="trxIdInput" placeholder="বিকাশ/নগদ TrxID দিন">
+    </div>
+    <button class="btn-submit" onclick="submitPayment()">টাকা অ্যাড করার রিকোয়েস্ট পাঠান</button>
+
+    <div class="section-title">Live Matches</div>
+
+    <div class="match-card">
+        <span class="match-id">#22487</span>
+        <div class="match-header">Solo Time | Mobile | Regular</div>
+        
+        <div class="timer-box">
+            <span class="timer-label">ম্যাচ শুরু হতে বাকি:</span>
+            <span id="countdown-timer" class="timer-clock">00h 00m 00s</span>
+        </div>
+        
+        <div class="match-grid">
+            <div>WIN PRIZE <span class="win-prize">800 TK</span></div>
+            <div>ENTRY TYPE <span>Solo</span></div>
+            <div>ENTRY FEE <span class="entry-fee">20 TK</span></div>
+            <div>PER KILL <span class="per-kill">10 TK</span></div>
+            <div>MAP <span>Bermuda</span></div>
+            <div>VERSION <span>MOBILE</span></div>
+        </div>
+
+        <div class="slot-container">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="background-color: #00BCD4; width: 44%;"></div>
+            </div>
+            <div class="slot-text">
+                <span>Only 18 spots are left</span>
+                <span style="color: #fff; font-weight: bold;">14/32</span>
+            </div>
+        </div>
+
+        <button id="join-btn" class="btn-join" onclick="joinMatch('22487')">Join Match</button>
+    </div>
+
+    <div class="match-card">
+        <span class="match-id">#22380</span>
+        <div class="match-header">Duo Time | Mobile | Regular</div>
+        
+        <div class="match-grid" style="margin-top: 10px;">
+            <div>WIN PRIZE <span class="win-prize">800 TK</span></div>
+            <div>ENTRY TYPE <span>Duo</span></div>
+            <div>ENTRY FEE <span class="entry-fee">20 TK</span></div>
+            <div>PER KILL <span class="per-kill">10 TK</span></div>
+            <div>MAP <span>Bermuda</span></div>
+            <div>VERSION <span>MOBILE</span></div>
+        </div>
+
+        <div class="slot-container">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="background-color: #4CAF50; width: 100%;"></div>
+            </div>
+            <div class="slot-text">
+                <span>Only 0 spots are left</span>
+                <span style="color: #fff; font-weight: bold;">32/32</span>
+            </div>
+        </div>
+
+        <button class="btn-join btn-full" disabled>Match Full</button>
+    </div>
+
+</div>
+
+<script>
+    // নম্বর কপি করার ফাংশন
+    function copyNumber() {
+        const numberText = document.getElementById("adminNumber").innerText;
+        navigator.clipboard.writeText(numberText).then(() => {
+            alert("নম্বরটি কপি করা হয়েছে: " + numberText);
+        }).catch(err => {
+            console.error('কপি করতে সমস্যা হয়েছে!', err);
+        });
+    }
+
+    // পেমেন্ট রিকোয়েস্ট সাবমিট করা
+    function submitPayment() {
+        const amount = document.getElementById("amountInput").value;
+        const trxId = document.getElementById("trxIdInput").value;
+
+        if (!amount || !trxId) {
+            alert("অনুগ্রহ করে সবগুলো ঘর পূরণ করুন!");
+            return;
+        }
+
+        alert("আপনার রিকোয়েস্টটি সফলভাবে জমা হয়েছে। পরিমাণ: " + amount + " TK, TrxID: " + trxId);
+        document.getElementById("amountInput").value = "";
+        document.getElementById("trxIdInput").value = "";
+    }
+
+    // ম্যাচে জয়েন করার নোটিফিকেশন
+    function joinMatch(matchId) {
+        alert("আপনি #" + matchId + " নম্বর ম্যাচে সফলভাবে জয়েন করার রিকোয়েস্ট সাবমিট করেছেন!");
+    }
+
+    // --- লাইভ কাউন্টডাউন টাইমার কোড ---
+    // বর্তমান সময় থেকে ১ ঘণ্টা পরের একটি সময় সেট করা হলো (আপনি চাইলে পরিবর্তন করতে পারেন)
+    var matchTime = new Date().getTime() + (1 * 60 * 60 * 1000); 
+
+    var timerFunction = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = matchTime - now;
+
+        // ঘণ্টা, মিনিট ও সেকেন্ড গণনা
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // জিরো ফর্ম্যাটিং (যেমন: 05h 09m 02s)
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+        // পেজে টাইমার আপডেট
+        document.getElementById("countdown-timer").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+        // সময় পার হয়ে গেলে বাটন ও টাইমার লক করা
+        if (distance < 0) {
+            clearInterval(timerFunction);
+            document.getElementById("countdown-timer").innerHTML = "ম্যাচ শুরু হয়ে গেছে!";
+            document.getElementById("countdown-timer").style.color = "#4CAF50";
+            
+            var joinBtn = document.getElementById("join-btn");
+            if(joinBtn) {
+                joinBtn.disabled = true;
+                joinBtn.innerHTML = "Match Started / Room ID Sent";
+                joinBtn.className = "btn-join btn-full";
+            }
+        }
+    }, 1000);
+</script>
+
+</body>
+</html>
